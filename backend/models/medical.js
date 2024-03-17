@@ -3,12 +3,12 @@ const mongoose = require('mongoose')
 const medicalSchema = new mongoose.Schema({
     
     Medicines: {
-        type: String,
-        // required: true,
+        type: ["String"],
+        required: true,
     },
     Complications: {
-        type: String,
-        // required: true,
+        type: ["String"],
+        required: true,
     },
 })
 

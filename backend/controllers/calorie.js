@@ -7,7 +7,8 @@ exports.calorie = async (req,res) => {
     try{
         //get data
         const {calories} = req.body
-
+        console.log("Calories : " + calories)
+        console.log(req.body)
         //create entry for user
         let health = await Calorie.create({
             calories,

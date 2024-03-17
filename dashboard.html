@@ -180,7 +180,7 @@ https://templatemo.com/tm-590-topic-listing
                                             <form onsubmit="handleMedical(event)" id="medForm">
                                                 <div id="inputContainer">
                                                     <div class="input-group">
-                                                        <input type="text" style="padding-top: 10px;" name="c[]" placeholder="Complications" required>
+                                                        <input type="text" style="padding-top: 10px;" name="c" placeholder="Complications" required>
                                                         
                                                         <button type="button" onclick="addComplications()">+</button>
                                                         
@@ -192,7 +192,7 @@ https://templatemo.com/tm-590-topic-listing
                                         
                                                 <div id="inputContainer2">
                                                     <div class="input-group2">
-                                                        <input type="text" style="padding-top: 10px;" name="medInput[]" placeholder="Medicines" required>
+                                                        <input type="text" style="padding-top: 10px;" name="medInput" placeholder="Medicines" required>
                                                         
                                                         <button type="button" onclick="addMedicine()">+</button>
                                                         
@@ -379,7 +379,7 @@ https://templatemo.com/tm-590-topic-listing
                 input.type = "text";
                 input.style.paddingTop = "10px";
                 input.placeholder = "Complications";
-                input.name = "c[]";
+                input.name = "c";
 
                 var removeBtn = document.createElement("button");
                 removeBtn.type = "button";
@@ -414,7 +414,7 @@ https://templatemo.com/tm-590-topic-listing
                 input.type = "text";
                 input.style.paddingTop = "10px";
                 input.placeholder = "Medicines";
-                input.name = "medInput[]";
+                input.name = "medInput";
 
                 var removeBtn = document.createElement("button");
                 removeBtn.type = "button";

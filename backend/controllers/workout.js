@@ -8,6 +8,9 @@ exports.workout = async (req,res) => {
         //get data
         const {Exercise, Duration} = req.body
 
+        console.log(Exercise)
+        console.log(Duration)
+        console.log(req.body)
         //create entry for user
         let work = await Workout.create({
             Exercise, 

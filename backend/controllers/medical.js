@@ -6,8 +6,10 @@ require("dotenv").config()
 exports.medical = async (req,res) => {
     try{
         //get data
-        const {Medicines, Complications} = req.body
-
+        const {Complications, Medicines} = req.body
+        console.log(Medicines)
+        console.log(Complications)
+        console.log(req.body)
         //create entry for user
         let med = await Medical.create({
             Medicines, 
