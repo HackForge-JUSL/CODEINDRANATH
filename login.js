@@ -59,7 +59,7 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
 const handleSignup = async (data) => {
 
     const savedUserResponse = await fetch(
-      `${process.env.REACT_APP_BASE_URL}/createUser`,
+      `${process.env.BASE_URL}/createUser`,
       {
         method: "POST",
         headers: {
@@ -72,6 +72,8 @@ const handleSignup = async (data) => {
     console.log("FORM RESPONSE......", savedUserResponse);
 
     navigate("/")
+
+    alert.message("Account Created")
 }
 
 

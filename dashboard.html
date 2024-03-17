@@ -154,10 +154,10 @@ https://templatemo.com/tm-590-topic-listing
                                             <h5 class="mb-2">Workouts</h5>
 
                                             <p class="mb-0">How much have you exercised today ?</p>
-                                            <form id="exeForm">
+                                            <form onsubmit="handleWorkout(event)" id="exeForm">
                                                 <input type="text" style="padding-top: 10px;" id="exeInput" placeholder="Workouts">
 
-                                                <input type="text" style="padding-top: 10px;" id="exeInput" placeholder="Time">
+                                                <input type="number" style="padding-top: 10px;" id="exeInput" placeholder="Duration in hours" step="0.5" min="0" value="0" name="workout">
                                                 <button type="submit2">Submit</button>
                                                 </form>
                                             
@@ -177,10 +177,30 @@ https://templatemo.com/tm-590-topic-listing
                                             <h5 class="mb-2">History</h5>
 
                                             <p class="mb-0">Enter your medical history here : </p>
-                                            <form id="medForm">
-                                                <input type="text" style="padding-top: 10px;" id="medInput" placeholder="Complications">
+                                            <form onsubmit="handleMedical(event)" id="medForm">
+                                                <div id="inputContainer">
+                                                    <div class="input-group">
+                                                        <input type="text" style="padding-top: 10px;" name="c[]" placeholder="Complications" required>
+                                                        
+                                                        <button type="button" onclick="addComplications()">+</button>
+                                                        
+                                                    </div>
+                                                </div id="101">
+                                                <br>
+                                            
+                                            <p class="mb-0">Enter your medications : </p>
+                                        
+                                                <div id="inputContainer2">
+                                                    <div class="input-group2">
+                                                        <input type="text" style="padding-top: 10px;" name="medInput[]" placeholder="Medicines" required>
+                                                        
+                                                        <button type="button" onclick="addMedicine()">+</button>
+                                                        
+                                                    </div>
+                                                </div id="101">
+                                                <br>
 
-                                                <button type="submit3">Submit</button>
+                                                <button type="submit" >Submit</button>
                                                 </form>
                                         </div>
 
@@ -347,6 +367,78 @@ https://templatemo.com/tm-590-topic-listing
         <script src="js/custom.js"></script>
 
         <script>
+
+            //------------addinput-----------
+
+            function addComplications() {
+                var container = document.getElementById("inputContainer");
+                var inputGroup = document.createElement("div");
+                inputGroup.classList.add("input-group");
+                
+                var input = document.createElement("input");
+                input.type = "text";
+                input.style.paddingTop = "10px";
+                input.placeholder = "Complications";
+                input.name = "c[]";
+
+                var removeBtn = document.createElement("button");
+                removeBtn.type = "button";
+                removeBtn.classList.add("remove-btn");
+                removeBtn.textContent = "-";
+                removeBtn.addEventListener("click", function() {
+                        container.removeChild(inputGroup);  
+                });
+
+                inputGroup.appendChild(input);
+                inputGroup.appendChild(removeBtn);
+                container.appendChild(inputGroup);
+            }
+
+                function removeInput(btn) {
+                    var container = document.getElementById("inputContainer");
+                    if (container.getElementsByClassName("input-group").length > 1) {
+                        container.removeChild(btn.parentNode);
+                    } else {
+                        alert("At least one input box is required.");
+                    }
+    }
+
+            //---------------addMedicine------------------
+
+            function addMedicine() {
+                var container = document.getElementById("inputContainer2");
+                var inputGroup = document.createElement("div");
+                inputGroup.classList.add("input-group2");
+                
+                var input = document.createElement("input");
+                input.type = "text";
+                input.style.paddingTop = "10px";
+                input.placeholder = "Medicines";
+                input.name = "medInput[]";
+
+                var removeBtn = document.createElement("button");
+                removeBtn.type = "button";
+                removeBtn.classList.add("remove-btn");
+                removeBtn.textContent = "-";
+                removeBtn.addEventListener("click", function() {
+                        container.removeChild(inputGroup);  
+                });
+
+                inputGroup.appendChild(input);
+                inputGroup.appendChild(removeBtn);
+                container.appendChild(inputGroup);
+            }
+
+                function removeInput(btn) {
+                    var container = document.getElementById("inputContainer");
+                    if (container.getElementsByClassName("input-group").length > 1) {
+                        container.removeChild(btn.parentNode);
+                    } else {
+                        alert("At least one input box is required.");
+                    }
+    }
+
+            //------------Calorie----------
             const handleCalorie = async (e) => {
                 try{
                     e.preventDefault();
@@ -366,7 +458,7 @@ https://templatemo.com/tm-590-topic-listing
                     $.ajax({
                         method: 'GET',
                         url: 'https://api.calorieninjas.com/v1/nutrition?query=' + data.food,
-                        headers: { 'X-Api-Key': 'tLYSHsBChcedBoRu0BDfNY3PRu0aD1ZeHFtGkQ2N'},
+                        headers: { 'X-Api-Key': 'YSzy9ddHiymXpla7EuCIVeJOgqERhdWuba3fj0jY'},
                         contentType: 'application/json',
                         success: async function(result) {
                             console.log(result);
@@ -416,6 +508,74 @@ https://templatemo.com/tm-590-topic-listing
                             console.error('Error: ', jqXHR.responseText);
                         }
                     });
+                }
+                catch(err){
+                    console.log(err)
+                }
+            }
+
+            //-----------handle medical-------------------
+
+            const handleMedical= async(e) => {
+                try{
+                    e.preventDefault();
+                    console.log(e);
+
+                    const formData = new FormData(e.target);
+                    const data = {};
+                    formData.forEach((value, key) => {
+                        data[key] = value;
+                    });
+
+                    console.log(data);
+
+                    //entry to database and connecting to backend
+                    const URL = "http://localhost:3000/bay/medical"
+                            const res = await fetch(URL, {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json"
+                                },
+                                body: JSON.stringify(data)
+                            })
+
+                            if(res.ok){
+                                alert("Medical history saved")
+                            }
+                }
+                catch(err){
+                    console.log(err)
+                }
+            }
+
+            //--------------handle workout-------------------
+
+            const handleWorkout= async(e) => {
+                try{
+                    e.preventDefault();
+                    console.log(e);
+
+                    const formData = new FormData(e.target);
+                    const data = {};
+                    formData.forEach((value, key) => {
+                        data[key] = value;
+                    });
+
+                    console.log(data);
+
+                    //entry to database and connecting to backend
+                    const URL = "http://localhost:3000/bay/workout"
+                            const res = await fetch(URL, {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json"
+                                },
+                                body: JSON.stringify(data)
+                            })
+
+                            if(res.ok){
+                                alert("Workout history saved")
+                            }
                 }
                 catch(err){
                     console.log(err)

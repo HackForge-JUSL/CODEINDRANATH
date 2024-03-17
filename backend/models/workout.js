@@ -1,15 +1,15 @@
 const mongoose = require('mongoose')
 
-const medicalSchema = new mongoose.Schema({
+const workoutSchema = new mongoose.Schema({
     
-    Medicines: {
+    Exercise: {
         type: String,
         // required: true,
     },
-    Complications: {
+    Duration: {
         type: String,
         // required: true,
     },
 })
 
-module.exports = mongoose.model("Medical", medicalSchema)
+module.exports = mongoose.model("Workout", workoutSchema)

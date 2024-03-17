@@ -6,20 +6,18 @@ require("dotenv").config()
 exports.medical = async (req,res) => {
     try{
         //get data
-        const {age, medicines, diseases, past_records} = req.body
+        const {Medicines, Complications} = req.body
 
         //create entry for user
-        let user = await Medical.create({
-            age, 
-            medicines, 
-            diseases, 
-            past_records,
+        let med = await Medical.create({
+            Medicines, 
+            Complications,
         })
 
         return res.status(200).json({
             success: true,
             message: "Medical history saved",
-            data: user,
+            data: med,
         })
     }
     catch(error){
